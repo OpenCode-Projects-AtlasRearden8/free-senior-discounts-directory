@@ -1,0 +1,252 @@
+{
+  "meta": {
+    "title": "Worth Asking: A Senior Discounts Directory",
+    "tagline": "Real discounts you can only get by asking. Nothing here needs a membership fee, an app, or a link that pays us.",
+    "lastRechecked": "2026-11-01",
+    "version": "1.0.0"
+  },
+  "categories": [
+    {
+      "id": "groceries",
+      "name": "Groceries",
+      "blurb": "Most grocery store deals are store-by-store, decided by the local manager, and never posted. That's exactly why asking works."
+    },
+    {
+      "id": "pharmacies",
+      "name": "Pharmacies",
+      "blurb": "Pharmacies expect to be asked about pricing. Questions are safe here; you are never taking a spot from anyone else."
+    },
+    {
+      "id": "restaurants",
+      "name": "Restaurants",
+      "blurb": "Restaurant discounts are among the most reliable nationwide, but details switch often. Order quietly at the register and nothing gets awkward."
+    },
+    {
+      "id": "phone-internet",
+      "name": "Phone & Internet Plans",
+      "blurb": "Carriers have whole teams for these plans. Asking for 'the plan for older adults' tells the rep exactly what to look up."
+    },
+    {
+      "id": "transit-parks",
+      "name": "Transit & Park Passes",
+      "blurb": "Government and park agencies usually publish their senior passes openly. These are rights, not favors - don't be shy about them."
+    },
+    {
+      "id": "eye-dental",
+      "name": "Eye & Dental",
+      "blurb": "Care offices would rather help than lose a patient to 'I can't afford it.' Every one of these offers exists to be asked for."
+    }
+  ],
+  "discounts": [
+    {
+      "id": "grocery-manager-honor-discount",
+      "category": "groceries",
+      "name": "The store's own 'senior day' or manager's discount",
+      "stores": "Chain supermarkets and local grocery stores",
+      "ageTrigger": "Varies: commonly 55, 60, 62, or 65",
+      "minAge": 55,
+      "deal": "A set percentage off groceries, or a special senior day (e.g., 5-10% off on one weekday). Independent stores sometimes offer a smaller courtesy discount any day.",
+      "whatToShow": "A driver's license or any photo ID with a birth year. Nothing else is needed.",
+      "howToAsk": "\"Hi, I'm a senior - do you have a senior discount or a senior day here? Is it anything I should ask at checkout?\"",
+      "variesByStore": true,
+      "variesNote": "Truly varies by store: many locations no longer publish senior days, but the local manager may have one anyway. If the answer is no today, some stores quietly grant a courtesy discount at the manager's discretion - try once, take no for an answer kindly, and ask again in a few months.",
+      "recheckDate": "2027-05-01",
+      "enabler": "Asking is allowed here. Store employees get this question regularly and a no costs you nothing but a breath."
+    },
+    {
+      "id": "grocery-pharmacy-bonus",
+      "category": "groceries",
+      "name": "Pharmacy-housed grocery bonus programs",
+      "stores": "Kroger family stores, Albertsons family stores, Safeway/other chains with in-store pharmacies",
+      "ageTrigger": "Usually 55-65 by store policy",
+      "minAge": 55,
+      "deal": "Extra fuel points, periodic senior days, or free-item coupons delivered through the store's free pharmacy/grocery program.",
+      "whatToShow": "Photo ID with birth year; the chain's free loyalty card if the store uses one (ask staff to help make it at the counter).",
+      "howToAsk": "\"Do you have a senior discount day, or anything in your program for shoppers over 55?\"",
+      "variesByStore": true,
+      "variesNote": "Varies heavily by chain and even by city. Some chains folded senior days into app-only deals; if so, ask the clerk to apply it manually once so you know it works before attempting the app.",
+      "recheckDate": "2027-04-01",
+      "enabler": "You are not asking anyone to break a rule. You are asking what rules already exist. That is always allowed."
+    },
+    {
+      "id": "pharmacy-generic-free",
+      "category": "pharmacies",
+      "name": "Free and low-cost generic lists",
+      "stores": "Publix Pharmacy, Costco Pharmacy (members), many independent pharmacies",
+      "ageTrigger": "Any adult; worth asking at any age",
+      "minAge": 0,
+      "deal": "Certain generic antibiotics, blood-pressure, and maintenance prescriptions for free or a low flat price (often $7.50-$15 for a 90-day supply), no insurance needed.",
+      "whatToShow": "Your prescription. That's it.",
+      "howToAsk": "\"Is this prescription on your free or low-cost generic program?\"",
+      "variesByStore": true,
+      "variesNote": "Lists change by year and location, and Costco requires membership for pharmacy use in many states (federal law allows buying from pharmacies, but store policies differ - ask). Always ask; the list is longer in-store than online.",
+      "recheckDate": "2027-03-01",
+      "enabler": "Pharmacists answer price questions all day and expect them. Your question is routine, welcome, and completely allowed."
+    },
+    {
+      "id": "pharmacy-vaccine-coupon",
+      "category": "pharmacies",
+      "name": "Vaccine co-pay and no-questions-asked pricing",
+      "stores": "Most chain pharmacies: CVS, Walgreens, Kroger, Safeway, Albertsons, Winn-Dixie",
+      "ageTrigger": "Typically 60+ for older-adult vaccines (per CDC guidance); also anyone with insurance",
+      "minAge": 60,
+      "deal": "Flu, shingles, RSV, and pneumonia vaccines: Medicare Part B/D or private plans usually cover them; pharmacy discounts or store coupons often drop the price further for unlucky months or insurance gaps.",
+      "whatToShow": "Your Medicare card, private insurance card, or pharmacy savings card (the pharmacist can hand you a paper savings card if you don't have plans).",
+      "howToAsk": "\"What will this vaccine cost with my plan - and do you have any coupon or savings program that would make it cheaper?\"",
+      "variesByStore": true,
+      "variesNote": "Cost depends on plan and formula year. Even without any insurance, asking the pharmacist to check the store's own savings program often cuts the price substantially. Nothing is wasted; pharmacists provide this by design.",
+      "recheckDate": "2027-02-01",
+      "enabler": "Asking about cost before you agree is totally normal. Pharmacists do not judge, and no one will rush you."
+    },
+    {
+      "id": "restaurant-chain-percentage",
+      "category": "restaurants",
+      "name": "Chain senior percentage discounts",
+      "stores": "IHOP (select locations), White Castle, Church's Chicken, Hardee's, Long John Silver's, Jack in the Box, Papa John's, and many local diners",
+      "ageTrigger": "Commonly 55-65 depending on chain and location",
+      "minAge": 55,
+      "deal": "Roughly 10% off the food bill, or a free small drink. Some chains offer a dedicated senior menu with smaller portions and lower prices.",
+      "whatToShow": "Photo ID, often not even needed in person - a simple mention is enough at the register or table.",
+      "howToAsk": "At a counter: \"Can I use your senior discount?\" At a table with a server: \"Do you honor senior discounts here?\" Ordering apps/pickup: \"Is there a senior discount I can apply?\"",
+      "variesByStore": true,
+      "variesNote": "Franchise-level, so the same logo can mean different deals two blocks apart. Ask at the register quietly; the discount either applies or you lose nothing.",
+      "recheckDate": "2027-05-01",
+      "enabler": "Asking at a restaurant is allowed and normal. It takes two seconds and the very worst case is 'sorry, not here.'"
+    },
+    {
+      "id": "restaurant-early-bird",
+      "category": "restaurants",
+      "name": "Early-bird and senior menus",
+      "stores": "Denny's, Golden Corral, Shoney's, numerous local family restaurants",
+      "ageTrigger": "Usually 55+",
+      "minAge": 55,
+      "deal": "A smaller-priced menu of full meals served in late afternoon/early evening; occasional free coffee with a senior meal.",
+      "whatToShow": "Nothing usually. A mention of age if the menu is posted for '55+' is enough.",
+      "howToAsk": "\"Is there a senior or early-bird menu?\"",
+      "variesByStore": true,
+      "variesNote": "Menus are reprinted often; if your location has dropped it, ask if anything similar exists - servers know and usually volunteer other options.",
+      "recheckDate": "2027-04-15",
+      "enabler": "Restaurant staff are literally trained to recommend menus. Asking them which menu saves money is a question they enjoy answering."
+    },
+    {
+      "id": "carriers-senior-plans",
+      "category": "phone-internet",
+      "name": "Discounted carrier senior plans",
+      "stores": "Consumer Cellular, Lively (GreatCall), T-Mobile senior plans (age 55+ lines), AT&T/Verizon AARP member discounts",
+      "ageTrigger": "T-Mobile: 55+ (up to 2 lines on one account). Some prepaid MVNOs have no age minimum but market to seniors.",
+      "minAge": 55,
+      "deal": "Locked-in monthly pricing (for example, roughly $27-$62/month per line for unlimited talk/text and reasonable data on 55+ plans), with no credit check on some MVNOs.",
+      "whatToShow": "Photo ID confirming age for the carrier's own senior plans; nothing for income-based subsidies.",
+      "howToAsk": "On the phone or in store: \"What plans do you have for customers 55 and older?\" Then: \"Is there anything additional for fixed-income customers?\"",
+      "variesByStore": true,
+      "variesNote": "Prices and coverage shift by state and year. Regional availability matters for T-Mobile 55+ (not in every state). Also ask about the federal Lifeline program if income-qualified - it can cover a basic phone or internet bill.",
+      "recheckDate": "2027-03-15",
+      "enabler": "Asking for a better-priced plan is allowed and is exactly what the reps' job training covers. Upgrading down isn't rude - it's budgeting."
+    },
+    {
+      "id": "isp-municipal-programs",
+      "category": "phone-internet",
+      "name": "Low-cost home internet programs",
+      "stores": "Comcast/Xfinity Internet Essentials, Spectrum Internet Assists, Cox Internet Start, plus municipal and co-op programs",
+      "ageTrigger": "No strict age rule; for older adults on fixed incomes with a household member receiving some assistance benefits",
+      "minAge": 0,
+      "deal": "Home internet around $10-$30/month with no installation fee, no contract, and free Wi-Fi router, through low-income-qualified programs.",
+      "whatToShow": "Proof of participation in a qualifying benefit (Medicaid, SSI, SNAP, housing assistance) or school/lunch-program eligibility in multi-generation households; an ID.",
+      "howToAsk": "Call the provider's main number and say: \"Do you have your low-cost internet assistance program? What do I need to qualify?\"",
+      "variesByStore": true,
+      "variesNote": "Program names and rules change often; recheck annually. Federal Affordable Connectivity Program funds ended in 2024, so verify current programs directly with the provider rather than by news article.",
+      "recheckDate": "2027-02-15",
+      "enabler": "Asking is allowed and there are trained staff whose job is to qualify you. It is not charity; you are simply using a program you qualify for."
+    },
+    {
+      "id": "transit-fixed-route",
+      "category": "transit-parks",
+      "name": "Reduced-fare transit passes",
+      "stores": "City buses, subways, and light rail: New York MTA, Chicago CTA, LA Metro, Seattle/King County Metro, and nearly every public transit agency in the U.S.",
+      "ageTrigger": "Usually 65+; some cities 62+ or program-specific",
+      "minAge": 65,
+      "deal": "Half-fare or reduced-fare passes; in some cities a free senior annual pass. Fixed-route buses often free or deeply discounted for seniors.",
+      "whatToShow": "Photo ID with birth date; many agencies issue their own senior Reduced-Fare ID card (apply at a transit office, sometimes by mail).",
+      "howToAsk": "At the transit office: \"I'd like to apply for the senior reduced-fare card. What do I need?\"",
+      "variesByStore": false,
+      "variesNote": "Seniors qualify by rule; the only variation is the age cut-off (55-65) and application process, both of which are published. Check your specific city's transit website for the exact form.",
+      "recheckDate": "2027-06-01",
+      "enabler": "This isn't a favor anyone is doing you - it is a published fare class you belong to. Asking for the senior card is expected at every transit office."
+    },
+    {
+      "id": "parks-senior-pass",
+      "category": "transit-parks",
+      "name": "America the Beautiful Senior Pass",
+      "stores": "All U.S. National Parks, National Forests, Wildlife Refuges, BLM lands, and many state parks",
+      "ageTrigger": "62+",
+      "minAge": 62,
+      "deal": "A lifetime pass (currently $80) or an annual pass (currently $20) covering entrance to federal recreation sites, plus 50% off some amenities like camping (in many sites).",
+      "whatToShow": "Photo ID with birth date; you can buy online (recreation.gov) or in person at a federal land visitor center or ranger station.",
+      "howToAsk": "You don't need a secret handshake: ask for it at the door. \"I'm 62 or older - can I get the senior pass?\" (Also ask the ranger about lifetime vs. annual to pick the right one for your plans.)",
+      "variesByStore": false,
+      "variesNote": "Fixed by federal law: 62+, $80 lifetime or $20 annual (confirm the exact figures at recreation.gov in case of annual fee updates). State parks run their own senior passes and vary by state.",
+      "recheckDate": "2027-01-15",
+      "enabler": "The senior pass is legislated, published, and sitting in every ranger's cash drawer waiting for your birth date. There is no asking-hard here, just asking-once."
+    },
+    {
+      "id": "state-parks-senior",
+      "category": "transit-parks",
+      "name": "State park senior passes",
+      "stores": "State park systems nationwide",
+      "ageTrigger": "Commonly 62-65, varies by state",
+      "minAge": 62,
+      "deal": "Free annual vehicle pass (in some states), or discounted entry/camping for seniors.",
+      "whatToShow": "Photo ID with birth date.",
+      "howToAsk": "At the gate or online: \"Do you have a senior pass for state residents 65 and up?\"",
+      "variesByStore": true,
+      "variesNote": "Varies completely by state: some give free annual passes to residents over 62, others only a discount. Check your state's parks website, or ask at any gate; rangers know the rule by heart.",
+      "recheckDate": "2027-05-15",
+      "enabler": "Park rangers want you to have your pass; it keeps day-use areas healthy. The form is short and the answer will never be 'why are you asking?'"
+    },
+    {
+      "id": "eye-vision-usa",
+      "category": "eye-dental",
+      "name": "Vision-help programs for exams and glasses",
+      "stores": "Eyeglass retailers with discount programs, VISION USA program, Lions Club assistance, eyewear retailers' community programs",
+      "ageTrigger": "No strict cutoff; best for seniors without vision insurance or Medicare vision benefits (Medicare typically doesn't cover routine eye exams or glasses)",
+      "minAge": 0,
+      "deal": "Free or discounted eye exams and basic glasses through community programs; some optical retailers offer seniors' frames/exam discounts (often 10-50% off).",
+      "whatToShow": "Proof of income or non-insurance for assistance programs; a photo ID.",
+      "howToAsk": "Call a local optometrist's office and say: \"I don't have vision insurance - do you have a senior discount, a payment plan, or know of a local program that can help with the exam and glasses?\"",
+      "variesByStore": true,
+      "variesNote": "Varies by county and program funding. Lions Clubs help through their Eyeglass Recycling and local assistance programs - reach the local club by phone. Some optometrists quietly work up payment plans that never appear on any public list.",
+      "recheckDate": "2027-04-01",
+      "enabler": "Optometry staff hear 'I can't really afford an exam' more often than you'd think and have answers ready. Asking is allowed and normal."
+    },
+    {
+      "id": "dental-school-clinics",
+      "category": "eye-dental",
+      "name": "Dental school clinics (cleanings and care at student prices)",
+      "stores": "Dental schools at state universities and community colleges nationwide",
+      "ageTrigger": "Any adult; no senior requirement",
+      "minAge": 0,
+      "deal": "Exams, cleanings, x-rays, fillings, dentures, and crowns at a fraction of private-practice rates, supervised by licensed dentists. Typically 30-70% less expensive.",
+      "whatToShow": "Nothing special - just book an appointment; some schools have a waiting list.",
+      "howToAsk": "Call the school's clinic and say: \"I'm an adult without dental insurance; how do I become a patient at your teaching clinic, and what does a cleaning/crown/denture cost there?\"",
+      "variesByStore": true,
+      "variesNote": "Appointments take longer than a regular dentist, and some schools only take patients during fall/spring terms. Also worth asking: dental hygiene schools (for cleanings) run separately and even cheaper in many towns.",
+      "recheckDate": "2027-03-01",
+      "enabler": "Teaching clinics need patients. You are not asking anyone for a favor; your appointment is the students' lesson plan."
+    },
+    {
+      "id": "dentist-senior-day",
+      "category": "eye-dental",
+      "name": "Senior discounts and free-consult days at private dental offices",
+      "stores": "Private and corporate dental chains (including many larger multi-office practices)",
+      "ageTrigger": "Typically 60-65+",
+      "minAge": 60,
+      "deal": "10-20% off cash-priced services, free new-patient consultations/exams, or periodic discounted cleaning days.",
+      "whatToShow": "Photo ID.",
+      "howToAsk": "\"Do you offer a discount for patients 65 and up? And do you ever run free consult or discount-cleanings days I could book?\"",
+      "variesByStore": true,
+      "variesNote": "Office-by-office decision. Small-town practices often discount more than city ones. If the front desk hesitates, asking to 'please check with the office manager' is okay - policies exist that the front desk may not remember.",
+      "recheckDate": "2027-05-15",
+      "enabler": "Asking about prices and discounts at a dental office is normal and allowed. Practices build payment plans and discounts exactly for these questions."
+    }
+  ]
+}

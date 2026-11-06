@@ -1,0 +1,15 @@
+{
+  "name": "free-senior-discounts-directory",
+  "version": "1.0.0",
+  "description": "Static, offline single-file directory of real senior discounts worth asking about. Built by Asdale Dynamics, LLC.",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "test": "node --test tests/",
+    "verify": "npm run build && npm test"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

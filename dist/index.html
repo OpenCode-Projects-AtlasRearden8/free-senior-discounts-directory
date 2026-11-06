@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worth Asking: A Senior Discounts Directory</title>
+<meta name="description" content="Real discounts you can only get by asking. Nothing here needs a membership fee, an app, or a link that pays us.">
+<style>
+  :root {
+    --ink: #262019;
+    --paper: #fdfbf7;
+    --card: #ffffff;
+    --accent: #2a6f4e;
+    --accent-soft: #e8f3ed;
+    --warn-bg: #fdf3e3;
+    --warn-ink: #7a4a12;
+    --border: #ded6c8;
+    --big: 1.0625rem;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: var(--big);
+    line-height: 1.55;
+  }
+  header.page-head {
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 1rem;
+  }
+  h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 .5rem; }
+  .tagline { font-size: 1.15rem; margin: 0 0 1rem; color: #5a5142; }
+  .intro {
+    background: var(--accent-soft);
+    border-left: 5px solid var(--accent);
+    padding: .9rem 1.1rem;
+    border-radius: 0 .5rem .5rem 0;
+  }
+  .intro p { margin: .4rem 0; }
+  nav.toc { max-width: 60rem; margin: 1rem auto 0; padding: 0 1.25rem; display: flex; flex-wrap: wrap; gap: .55rem; }
+  nav.toc a {
+    display: inline-block;
+    padding: .35rem .8rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  nav.toc a:hover { background: var(--accent-soft); }
+  .controls {
+    position: sticky; top: 0; z-index: 5;
+    background: var(--paper);
+    border-bottom: 2px solid var(--border);
+    padding: .75rem 1.25rem;
+    display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+    max-width: 60rem; margin: 1.25rem auto 0;
+  }
+  .controls label { font-weight: bold; }
+  .controls select, .controls input[type="search"] {
+    font: inherit;
+    padding: .45rem .6rem;
+    border: 2px solid var(--border);
+    border-radius: .4rem;
+    background: var(--card);
+    color: var(--ink);
+  }
+  #ageFilter { min-width: 12rem; }
+  #searchFilter { flex: 1 1 14rem; }
+  .count-note { font-size: .95rem; color: #5a5142; }
+  main { max-width: 60rem; margin: 0 auto; padding: 1rem 1.25rem 3rem; }
+  section.category h2 {
+    font-size: 1.5rem;
+    margin: 2rem 0 .25rem;
+    padding-bottom: .3rem;
+    border-bottom: 3px solid var(--accent);
+  }
+  .cat-blurb { color: #5a5142; margin-top: .5rem; }
+  .card-grid { display: grid; gap: 1.25rem; margin-top: 1rem; }
+  article.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: .6rem;
+    padding: 1.1rem 1.25rem;
+    box-shadow: 0 1px 3px rgba(60, 45, 25, 0.08);
+  }
+  article.card.hidden { display: none; }
+  section.category.no-cards h2, section.category.no-cards .cat-blurb { color: #a09884; }
+  .cat-chip {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    padding: .2rem .6rem;
+    border-radius: 999px;
+    margin-bottom: .4rem;
+  }
+  article.card h3 { margin: .2rem 0 .3rem; font-size: 1.3rem; }
+  .stores { margin: 0 0 .6rem; color: #453c2e; }
+  dl.card-body { margin: 0; }
+  dl.card-body .row {
+    display: grid;
+    grid-template-columns: 10.5rem 1fr;
+    gap: .25rem .9rem;
+    padding: .4rem 0;
+    border-top: 1px dotted var(--border);
+  }
+  dl.card-body dt { font-weight: bold; color: #453c2e; }
+  dl.card-body dd { margin: 0; }
+  .say-this dd { color: var(--accent); font-weight: bold; }
+  .varies-flag { color: var(--warn-ink); font-size: .9rem; }
+  .varies dd { color: var(--warn-ink); background: var(--warn-bg); padding: .35rem .6rem; border-radius: .35rem; }
+  .enabler {
+    margin: .8rem 0 0;
+    background: var(--accent-soft);
+    border-left: 5px solid var(--accent);
+    padding: .55rem .8rem;
+    border-radius: 0 .35rem .35rem 0;
+    font-style: italic;
+  }
+  .closing {
+    max-width: 60rem; margin: 2.5rem auto 0; padding: 1.25rem;
+    border: 2px solid var(--accent); border-radius: .6rem;
+    background: var(--accent-soft);
+  }
+  .closing h2 { margin-top: 0; }
+  footer.page-foot {
+    max-width: 60rem; margin: 2rem auto; padding: 0 1.25rem 2rem;
+    color: #7a7263; font-size: .95rem;
+    border-top: 1px solid var(--border); padding-top: 1rem;
+  }
+  footer.page-foot a { color: var(--accent); }
+  .empty-note { display: none; margin: 2rem 0; text-align: center; color: #5a5142; }
+  .empty-note.show { display: block; }
+  @media (max-width: 40rem) {
+    dl.card-body .row { grid-template-columns: 1fr; }
+    .row dt { margin-bottom: .15rem; }
+  }
+  @media print {
+    .controls, nav.toc { display: none; }
+    article.card { break-inside: avoid; }
+    body { font-size: 11pt; }
+  }
+</style>
+</head>
+<body>
+  <header class="page-head">
+    <h1>Worth Asking: A Senior Discounts Directory</h1>
+    <p class="tagline">Real discounts you can only get by asking. Nothing here needs a membership fee, an app, or a link that pays us.</p>
+    <div class="intro">
+      <p>Every card below tells you the <strong>typical age</strong> a discount starts, <strong>what to show</strong> at the counter, and a <strong>kind way to ask</strong> that keeps you feeling comfortable. Nothing here is a secret, a membership club, or an internet thing;&nbsp; it&rsquo;s just words to say out loud.</p>
+      <p><strong>One honest truth:</strong> many of these discounts change store by store. That&rsquo;s why every card says what varies &mdash; and why <strong>asking is the whole trick</strong>. If the answer is no today, try again in a few months. You are always allowed to ask.</p>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Jump to a category">
+    <a href="#cat-groceries">Groceries</a>
+    <a href="#cat-pharmacies">Pharmacies</a>
+    <a href="#cat-restaurants">Restaurants</a>
+    <a href="#cat-phone-internet">Phone &amp; Internet Plans</a>
+    <a href="#cat-transit-parks">Transit &amp; Park Passes</a>
+    <a href="#cat-eye-dental">Eye &amp; Dental</a>
+  </nav>
+
+  <div class="controls">
+    <label for="ageFilter">Show discounts for age:</label>
+    <select id="ageFilter">
+      <option value="all" selected>Any age (show all)</option>
+      <option value="55">55 and up</option>
+      <option value="60">60 and up</option>
+      <option value="62">62 and up</option>
+      <option value="65">65 and up</option>
+    </select>
+    <label for="searchFilter" class="sr-only" style="position:absolute;left:-9999px;">Search cards</label>
+    <input type="search" id="searchFilter" placeholder="Search cards (e.g. dentist, bus, phone&hellip;)" aria-label="Search cards">
+    <span class="count-note" id="countNote" role="status" aria-live="polite"></span>
+  </div>
+
+  <main>
+
+    <section class="category" id="cat-groceries" data-cat="groceries">
+      <h2>Groceries</h2>
+      <p class="cat-blurb">Most grocery store deals are store-by-store, decided by the local manager, and never posted. That&#39;s exactly why asking works.</p>
+      <div class="card-grid">
+      <article class="card" id="grocery-manager-honor-discount" data-minage="55" data-varies="1" data-cat="groceries">
+        <header class="card-head">
+          <span class="cat-chip">Groceries</span>
+          <h3>The store&#39;s own &#39;senior day&#39; or manager&#39;s discount</h3>
+          <p class="stores"><strong>Where:</strong> Chain supermarkets and local grocery stores</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>Varies: commonly 55, 60, 62, or 65</dd></div>
+          <div class="row"><dt>The deal</dt><dd>A set percentage off groceries, or a special senior day (e.g., 5-10% off on one weekday). Independent stores sometimes offer a smaller courtesy discount any day.</dd></div>
+          <div class="row"><dt>What to show</dt><dd>A driver&#39;s license or any photo ID with a birth year. Nothing else is needed.</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;&quot;Hi, I&#39;m a senior - do you have a senior discount or a senior day here? Is it anything I should ask at checkout?&quot;&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note <em class="varies-flag">(varies by store)</em></dt><dd>Truly varies by store: many locations no longer publish senior days, but the local manager may have one anyway. If the answer is no today, some stores quietly grant a courtesy discount at the manager&#39;s discretion - try once, take no for an answer kindly, and ask again in a few months.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-05-01">2027-05-01</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. Asking is allowed here. Store employees get this question regularly and a no costs you nothing but a breath.</p>
+      </article>
+
+      <article class="card" id="grocery-pharmacy-bonus" data-minage="55" data-varies="1" data-cat="groceries">
+        <header class="card-head">
+          <span class="cat-chip">Groceries</span>
+          <h3>Pharmacy-housed grocery bonus programs</h3>
+          <p class="stores"><strong>Where:</strong> Kroger family stores, Albertsons family stores, Safeway/other chains with in-store pharmacies</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>Usually 55-65 by store policy</dd></div>
+          <div class="row"><dt>The deal</dt><dd>Extra fuel points, periodic senior days, or free-item coupons delivered through the store&#39;s free pharmacy/grocery program.</dd></div>
+          <div class="row"><dt>What to show</dt><dd>Photo ID with birth year; the chain&#39;s free loyalty card if the store uses one (ask staff to help make it at the counter).</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;&quot;Do you have a senior discount day, or anything in your program for shoppers over 55?&quot;&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note <em class="varies-flag">(varies by store)</em></dt><dd>Varies heavily by chain and even by city. Some chains folded senior days into app-only deals; if so, ask the clerk to apply it manually once so you know it works before attempting the app.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-04-01">2027-04-01</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. You are not asking anyone to break a rule. You are asking what rules already exist. That is always allowed.</p>
+      </article>
+      </div>
+    </section>
+
+    <section class="category" id="cat-pharmacies" data-cat="pharmacies">
+      <h2>Pharmacies</h2>
+      <p class="cat-blurb">Pharmacies expect to be asked about pricing. Questions are safe here; you are never taking a spot from anyone else.</p>
+      <div class="card-grid">
+      <article class="card" id="pharmacy-generic-free" data-minage="0" data-varies="1" data-cat="pharmacies">
+        <header class="card-head">
+          <span class="cat-chip">Pharmacies</span>
+          <h3>Free and low-cost generic lists</h3>
+          <p class="stores"><strong>Where:</strong> Publix Pharmacy, Costco Pharmacy (members), many independent pharmacies</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>Any adult; worth asking at any age</dd></div>
+          <div class="row"><dt>The deal</dt><dd>Certain generic antibiotics, blood-pressure, and maintenance prescriptions for free or a low flat price (often $7.50-$15 for a 90-day supply), no insurance needed.</dd></div>
+          <div class="row"><dt>What to show</dt><dd>Your prescription. That&#39;s it.</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;&quot;Is this prescription on your free or low-cost generic program?&quot;&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note <em class="varies-flag">(varies by store)</em></dt><dd>Lists change by year and location, and Costco requires membership for pharmacy use in many states (federal law allows buying from pharmacies, but store policies differ - ask). Always ask; the list is longer in-store than online.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-03-01">2027-03-01</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. Pharmacists answer price questions all day and expect them. Your question is routine, welcome, and completely allowed.</p>
+      </article>
+
+      <article class="card" id="pharmacy-vaccine-coupon" data-minage="60" data-varies="1" data-cat="pharmacies">
+        <header class="card-head">
+          <span class="cat-chip">Pharmacies</span>
+          <h3>Vaccine co-pay and no-questions-asked pricing</h3>
+          <p class="stores"><strong>Where:</strong> Most chain pharmacies: CVS, Walgreens, Kroger, Safeway, Albertsons, Winn-Dixie</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>Typically 60+ for older-adult vaccines (per CDC guidance); also anyone with insurance</dd></div>
+          <div class="row"><dt>The deal</dt><dd>Flu, shingles, RSV, and pneumonia vaccines: Medicare Part B/D or private plans usually cover them; pharmacy discounts or store coupons often drop the price further for unlucky months or insurance gaps.</dd></div>
+          <div class="row"><dt>What to show</dt><dd>Your Medicare card, private insurance card, or pharmacy savings card (the pharmacist can hand you a paper savings card if you don&#39;t have plans).</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;&quot;What will this vaccine cost with my plan - and do you have any coupon or savings program that would make it cheaper?&quot;&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note <em class="varies-flag">(varies by store)</em></dt><dd>Cost depends on plan and formula year. Even without any insurance, asking the pharmacist to check the store&#39;s own savings program often cuts the price substantially. Nothing is wasted; pharmacists provide this by design.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-02-01">2027-02-01</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. Asking about cost before you agree is totally normal. Pharmacists do not judge, and no one will rush you.</p>
+      </article>
+      </div>
+    </section>
+
+    <section class="category" id="cat-restaurants" data-cat="restaurants">
+      <h2>Restaurants</h2>
+      <p class="cat-blurb">Restaurant discounts are among the most reliable nationwide, but details switch often. Order quietly at the register and nothing gets awkward.</p>
+      <div class="card-grid">
+      <article class="card" id="restaurant-chain-percentage" data-minage="55" data-varies="1" data-cat="restaurants">
+        <header class="card-head">
+          <span class="cat-chip">Restaurants</span>
+          <h3>Chain senior percentage discounts</h3>
+          <p class="stores"><strong>Where:</strong> IHOP (select locations), White Castle, Church&#39;s Chicken, Hardee&#39;s, Long John Silver&#39;s, Jack in the Box, Papa John&#39;s, and many local diners</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>Commonly 55-65 depending on chain and location</dd></div>
+          <div class="row"><dt>The deal</dt><dd>Roughly 10% off the food bill, or a free small drink. Some chains offer a dedicated senior menu with smaller portions and lower prices.</dd></div>
+          <div class="row"><dt>What to show</dt><dd>Photo ID, often not even needed in person - a simple mention is enough at the register or table.</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;At a counter: &quot;Can I use your senior discount?&quot; At a table with a server: &quot;Do you honor senior discounts here?&quot; Ordering apps/pickup: &quot;Is there a senior discount I can apply?&quot;&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note <em class="varies-flag">(varies by store)</em></dt><dd>Franchise-level, so the same logo can mean different deals two blocks apart. Ask at the register quietly; the discount either applies or you lose nothing.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-05-01">2027-05-01</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. Asking at a restaurant is allowed and normal. It takes two seconds and the very worst case is &#39;sorry, not here.&#39;</p>
+      </article>
+
+      <article class="card" id="restaurant-early-bird" data-minage="55" data-varies="1" data-cat="restaurants">
+        <header class="card-head">
+          <span class="cat-chip">Restaurants</span>
+          <h3>Early-bird and senior menus</h3>
+          <p class="stores"><strong>Where:</strong> Denny&#39;s, Golden Corral, Shoney&#39;s, numerous local family restaurants</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>Usually 55+</dd></div>
+          <div class="row"><dt>The deal</dt><dd>A smaller-priced menu of full meals served in late afternoon/early evening; occasional free coffee with a senior meal.</dd></div>
+          <div class="row"><dt>What to show</dt><dd>Nothing usually. A mention of age if the menu is posted for &#39;55+&#39; is enough.</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;&quot;Is there a senior or early-bird menu?&quot;&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note <em class="varies-flag">(varies by store)</em></dt><dd>Menus are reprinted often; if your location has dropped it, ask if anything similar exists - servers know and usually volunteer other options.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-04-15">2027-04-15</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. Restaurant staff are literally trained to recommend menus. Asking them which menu saves money is a question they enjoy answering.</p>
+      </article>
+      </div>
+    </section>
+
+    <section class="category" id="cat-phone-internet" data-cat="phone-internet">
+      <h2>Phone &amp; Internet Plans</h2>
+      <p class="cat-blurb">Carriers have whole teams for these plans. Asking for &#39;the plan for older adults&#39; tells the rep exactly what to look up.</p>
+      <div class="card-grid">
+      <article class="card" id="carriers-senior-plans" data-minage="55" data-varies="1" data-cat="phone-internet">
+        <header class="card-head">
+          <span class="cat-chip">Phone &amp; Internet Plans</span>
+          <h3>Discounted carrier senior plans</h3>
+          <p class="stores"><strong>Where:</strong> Consumer Cellular, Lively (GreatCall), T-Mobile senior plans (age 55+ lines), AT&amp;T/Verizon AARP member discounts</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>T-Mobile: 55+ (up to 2 lines on one account). Some prepaid MVNOs have no age minimum but market to seniors.</dd></div>
+          <div class="row"><dt>The deal</dt><dd>Locked-in monthly pricing (for example, roughly $27-$62/month per line for unlimited talk/text and reasonable data on 55+ plans), with no credit check on some MVNOs.</dd></div>
+          <div class="row"><dt>What to show</dt><dd>Photo ID confirming age for the carrier&#39;s own senior plans; nothing for income-based subsidies.</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;On the phone or in store: &quot;What plans do you have for customers 55 and older?&quot; Then: &quot;Is there anything additional for fixed-income customers?&quot;&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note <em class="varies-flag">(varies by store)</em></dt><dd>Prices and coverage shift by state and year. Regional availability matters for T-Mobile 55+ (not in every state). Also ask about the federal Lifeline program if income-qualified - it can cover a basic phone or internet bill.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-03-15">2027-03-15</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. Asking for a better-priced plan is allowed and is exactly what the reps&#39; job training covers. Upgrading down isn&#39;t rude - it&#39;s budgeting.</p>
+      </article>
+
+      <article class="card" id="isp-municipal-programs" data-minage="0" data-varies="1" data-cat="phone-internet">
+        <header class="card-head">
+          <span class="cat-chip">Phone &amp; Internet Plans</span>
+          <h3>Low-cost home internet programs</h3>
+          <p class="stores"><strong>Where:</strong> Comcast/Xfinity Internet Essentials, Spectrum Internet Assists, Cox Internet Start, plus municipal and co-op programs</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>No strict age rule; for older adults on fixed incomes with a household member receiving some assistance benefits</dd></div>
+          <div class="row"><dt>The deal</dt><dd>Home internet around $10-$30/month with no installation fee, no contract, and free Wi-Fi router, through low-income-qualified programs.</dd></div>
+          <div class="row"><dt>What to show</dt><dd>Proof of participation in a qualifying benefit (Medicaid, SSI, SNAP, housing assistance) or school/lunch-program eligibility in multi-generation households; an ID.</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;Call the provider&#39;s main number and say: &quot;Do you have your low-cost internet assistance program? What do I need to qualify?&quot;&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note <em class="varies-flag">(varies by store)</em></dt><dd>Program names and rules change often; recheck annually. Federal Affordable Connectivity Program funds ended in 2024, so verify current programs directly with the provider rather than by news article.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-02-15">2027-02-15</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. Asking is allowed and there are trained staff whose job is to qualify you. It is not charity; you are simply using a program you qualify for.</p>
+      </article>
+      </div>
+    </section>
+
+    <section class="category" id="cat-transit-parks" data-cat="transit-parks">
+      <h2>Transit &amp; Park Passes</h2>
+      <p class="cat-blurb">Government and park agencies usually publish their senior passes openly. These are rights, not favors - don&#39;t be shy about them.</p>
+      <div class="card-grid">
+      <article class="card" id="transit-fixed-route" data-minage="65" data-varies="0" data-cat="transit-parks">
+        <header class="card-head">
+          <span class="cat-chip">Transit &amp; Park Passes</span>
+          <h3>Reduced-fare transit passes</h3>
+          <p class="stores"><strong>Where:</strong> City buses, subways, and light rail: New York MTA, Chicago CTA, LA Metro, Seattle/King County Metro, and nearly every public transit agency in the U.S.</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>Usually 65+; some cities 62+ or program-specific</dd></div>
+          <div class="row"><dt>The deal</dt><dd>Half-fare or reduced-fare passes; in some cities a free senior annual pass. Fixed-route buses often free or deeply discounted for seniors.</dd></div>
+          <div class="row"><dt>What to show</dt><dd>Photo ID with birth date; many agencies issue their own senior Reduced-Fare ID card (apply at a transit office, sometimes by mail).</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;At the transit office: &quot;I&#39;d like to apply for the senior reduced-fare card. What do I need?&quot;&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note</dt><dd>Seniors qualify by rule; the only variation is the age cut-off (55-65) and application process, both of which are published. Check your specific city&#39;s transit website for the exact form.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-06-01">2027-06-01</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. This isn&#39;t a favor anyone is doing you - it is a published fare class you belong to. Asking for the senior card is expected at every transit office.</p>
+      </article>
+
+      <article class="card" id="parks-senior-pass" data-minage="62" data-varies="0" data-cat="transit-parks">
+        <header class="card-head">
+          <span class="cat-chip">Transit &amp; Park Passes</span>
+          <h3>America the Beautiful Senior Pass</h3>
+          <p class="stores"><strong>Where:</strong> All U.S. National Parks, National Forests, Wildlife Refuges, BLM lands, and many state parks</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>62+</dd></div>
+          <div class="row"><dt>The deal</dt><dd>A lifetime pass (currently $80) or an annual pass (currently $20) covering entrance to federal recreation sites, plus 50% off some amenities like camping (in many sites).</dd></div>
+          <div class="row"><dt>What to show</dt><dd>Photo ID with birth date; you can buy online (recreation.gov) or in person at a federal land visitor center or ranger station.</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;You don&#39;t need a secret handshake: ask for it at the door. &quot;I&#39;m 62 or older - can I get the senior pass?&quot; (Also ask the ranger about lifetime vs. annual to pick the right one for your plans.)&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note</dt><dd>Fixed by federal law: 62+, $80 lifetime or $20 annual (confirm the exact figures at recreation.gov in case of annual fee updates). State parks run their own senior passes and vary by state.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-01-15">2027-01-15</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. The senior pass is legislated, published, and sitting in every ranger&#39;s cash drawer waiting for your birth date. There is no asking-hard here, just asking-once.</p>
+      </article>
+
+      <article class="card" id="state-parks-senior" data-minage="62" data-varies="1" data-cat="transit-parks">
+        <header class="card-head">
+          <span class="cat-chip">Transit &amp; Park Passes</span>
+          <h3>State park senior passes</h3>
+          <p class="stores"><strong>Where:</strong> State park systems nationwide</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>Commonly 62-65, varies by state</dd></div>
+          <div class="row"><dt>The deal</dt><dd>Free annual vehicle pass (in some states), or discounted entry/camping for seniors.</dd></div>
+          <div class="row"><dt>What to show</dt><dd>Photo ID with birth date.</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;At the gate or online: &quot;Do you have a senior pass for state residents 65 and up?&quot;&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note <em class="varies-flag">(varies by store)</em></dt><dd>Varies completely by state: some give free annual passes to residents over 62, others only a discount. Check your state&#39;s parks website, or ask at any gate; rangers know the rule by heart.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-05-15">2027-05-15</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. Park rangers want you to have your pass; it keeps day-use areas healthy. The form is short and the answer will never be &#39;why are you asking?&#39;</p>
+      </article>
+      </div>
+    </section>
+
+    <section class="category" id="cat-eye-dental" data-cat="eye-dental">
+      <h2>Eye &amp; Dental</h2>
+      <p class="cat-blurb">Care offices would rather help than lose a patient to &#39;I can&#39;t afford it.&#39; Every one of these offers exists to be asked for.</p>
+      <div class="card-grid">
+      <article class="card" id="eye-vision-usa" data-minage="0" data-varies="1" data-cat="eye-dental">
+        <header class="card-head">
+          <span class="cat-chip">Eye &amp; Dental</span>
+          <h3>Vision-help programs for exams and glasses</h3>
+          <p class="stores"><strong>Where:</strong> Eyeglass retailers with discount programs, VISION USA program, Lions Club assistance, eyewear retailers&#39; community programs</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>No strict cutoff; best for seniors without vision insurance or Medicare vision benefits (Medicare typically doesn&#39;t cover routine eye exams or glasses)</dd></div>
+          <div class="row"><dt>The deal</dt><dd>Free or discounted eye exams and basic glasses through community programs; some optical retailers offer seniors&#39; frames/exam discounts (often 10-50% off).</dd></div>
+          <div class="row"><dt>What to show</dt><dd>Proof of income or non-insurance for assistance programs; a photo ID.</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;Call a local optometrist&#39;s office and say: &quot;I don&#39;t have vision insurance - do you have a senior discount, a payment plan, or know of a local program that can help with the exam and glasses?&quot;&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note <em class="varies-flag">(varies by store)</em></dt><dd>Varies by county and program funding. Lions Clubs help through their Eyeglass Recycling and local assistance programs - reach the local club by phone. Some optometrists quietly work up payment plans that never appear on any public list.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-04-01">2027-04-01</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. Optometry staff hear &#39;I can&#39;t really afford an exam&#39; more often than you&#39;d think and have answers ready. Asking is allowed and normal.</p>
+      </article>
+
+      <article class="card" id="dental-school-clinics" data-minage="0" data-varies="1" data-cat="eye-dental">
+        <header class="card-head">
+          <span class="cat-chip">Eye &amp; Dental</span>
+          <h3>Dental school clinics (cleanings and care at student prices)</h3>
+          <p class="stores"><strong>Where:</strong> Dental schools at state universities and community colleges nationwide</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>Any adult; no senior requirement</dd></div>
+          <div class="row"><dt>The deal</dt><dd>Exams, cleanings, x-rays, fillings, dentures, and crowns at a fraction of private-practice rates, supervised by licensed dentists. Typically 30-70% less expensive.</dd></div>
+          <div class="row"><dt>What to show</dt><dd>Nothing special - just book an appointment; some schools have a waiting list.</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;Call the school&#39;s clinic and say: &quot;I&#39;m an adult without dental insurance; how do I become a patient at your teaching clinic, and what does a cleaning/crown/denture cost there?&quot;&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note <em class="varies-flag">(varies by store)</em></dt><dd>Appointments take longer than a regular dentist, and some schools only take patients during fall/spring terms. Also worth asking: dental hygiene schools (for cleanings) run separately and even cheaper in many towns.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-03-01">2027-03-01</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. Teaching clinics need patients. You are not asking anyone for a favor; your appointment is the students&#39; lesson plan.</p>
+      </article>
+
+      <article class="card" id="dentist-senior-day" data-minage="60" data-varies="1" data-cat="eye-dental">
+        <header class="card-head">
+          <span class="cat-chip">Eye &amp; Dental</span>
+          <h3>Senior discounts and free-consult days at private dental offices</h3>
+          <p class="stores"><strong>Where:</strong> Private and corporate dental chains (including many larger multi-office practices)</p>
+        </header>
+        <dl class="card-body">
+          <div class="row"><dt>Typical age trigger</dt><dd>Typically 60-65+</dd></div>
+          <div class="row"><dt>The deal</dt><dd>10-20% off cash-priced services, free new-patient consultations/exams, or periodic discounted cleaning days.</dd></div>
+          <div class="row"><dt>What to show</dt><dd>Photo ID.</dd></div>
+          <div class="row say-this"><dt>How to ask kindly</dt><dd>&ldquo;&hellip;&quot;Do you offer a discount for patients 65 and up? And do you ever run free consult or discount-cleanings days I could book?&quot;&rdquo;</dd></div>
+          <div class="row varies"><dt>Honest note <em class="varies-flag">(varies by store)</em></dt><dd>Office-by-office decision. Small-town practices often discount more than city ones. If the front desk hesitates, asking to &#39;please check with the office manager&#39; is okay - policies exist that the front desk may not remember.</dd></div>
+          <div class="row"><dt>Recheck date</dt><dd><time datetime="2027-05-15">2027-05-15</time></dd></div>
+        </dl>
+        <p class="enabler" role="note">You&rsquo;re allowed to ask this. Asking about prices and discounts at a dental office is normal and allowed. Practices build payment plans and discounts exactly for these questions.</p>
+      </article>
+      </div>
+    </section>
+    <p class="empty-note" id="emptyNote">No cards match that filter. Try a younger age or clearer words in the search box.</p>
+
+    <section class="closing">
+      <h2>The catch-all: just ask, anywhere</h2>
+      <p>There is no national list of all senior discounts, because most are decided <strong>business by business</strong> &mdash; sometimes not even written down anywhere. At any store, restaurant, museum, or service counter, it&rsquo;s fine to say:</p>
+      <p><strong>&ldquo;Do you offer a senior discount here?&rdquo;</strong></p>
+      <p>Bring a photo ID with your birth year. <strong>You choose when to ask</strong> &mdash; usually it starts somewhere between 55 and 65, but the worst possible result is one small &ldquo;no.&rdquo;</p>
+      <p class="enabler" role="note">Asking costs nothing but one gentle sentence. If the answer is &ldquo;yes, 10% off,&rdquo; you&rsquo;ve just handed yourself money for free. That&rsquo;s a good trade every single day.</p>
+      <h2>The golden rules of asking kindly</h2>
+      <ol>
+        <li><strong>Ask at the register or before you order</strong> &mdash; quietly, before the line gets long behind you.</li>
+        <li><strong>Accept a no gracefully.</strong> &ldquo;No problem, thanks anyway&rdquo; ends every conversation kindly.</li>
+        <li><strong>Never argue.</strong> A discount turned down today might be there next visit, with a different manager or a new policy.</li>
+        <li><strong>Keep it to one sentence.</strong> People answer short, warm questions better than long ones.</li>
+        <li><strong>Take notes.</strong> Jot down where you were told &ldquo;yes&rdquo; &mdash; your own list becomes the only senior-discount list that&rsquo;s 100% true.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="page-foot">
+    <p>Data last rechecked: <strong>2026-11-01</strong>. Each card also shows its own recheck date &mdash; if a card is older than a year, please double-check with the store first.</p>
+    <p>This page is a plain educational directory, not legal, financial, or medical advice; offer details change and are controlled by each business. Built by <a href="https://dylanasdale.github.io">Dylan Asdale</a> / <strong>Asdale Dynamics, LLC</strong>. No affiliate links, no tracking, works offline from one file.</p>
+  </footer>
+
+<script>
+(function () {
+  "use strict";
+  var ageSelect = document.getElementById("ageFilter");
+  var searchInput = document.getElementById("searchFilter");
+  var countNote = document.getElementById("countNote");
+  var emptyNote = document.getElementById("emptyNote");
+  var cards = Array.prototype.slice.call(document.querySelectorAll("article.card"));
+  var sections = Array.prototype.slice.call(document.querySelectorAll("section.category"));
+
+  function normalize(text) {
+    return (text || "").toLowerCase().replace(/\s+/g, " ").trim();
+  }
+
+  function cardText(card) {
+    return normalize(card.textContent);
+  }
+
+  function applyFilters() {
+    var age = ageSelect.value === "all" ? Infinity : parseInt(ageSelect.value, 10);
+    var query = normalize(searchInput.value);
+    var visible = 0;
+
+    cards.forEach(function (card) {
+      var minAge = parseInt(card.getAttribute("data-minage") || "0", 10);
+      var passAge = isNaN(age) ? true : minAge <= age;
+      var passText = query === "" || cardText(card).indexOf(query) >= 0;
+      var show = passAge && passText;
+      card.classList.toggle("hidden", !show);
+      if (show) visible++;
+    });
+
+    sections.forEach(function (section) {
+      var anyVisible = section.querySelectorAll("article.card:not(.hidden)").length > 0;
+      section.classList.toggle("no-cards", !anyVisible);
+      section.querySelector(".card-grid").style.display = anyVisible ? "" : "none";
+      if (!anyVisible) { section.querySelector(".cat-blurb").textContent = "Nothing matches your current filter in this category."; }
+      else { section.querySelector(".cat-blurb").textContent = section.getAttribute("data-blurb"); }
+    });
+
+    countNote.textContent = "Showing " + visible + " of " + cards.length + " cards.";
+    emptyNote.classList.toggle("show", visible === 0);
+  }
+
+  // Stash blurbs so the filter can swap them in/out without losing the original text.
+  sections.forEach(function (section) {
+    section.setAttribute("data-blurb", section.querySelector(".cat-blurb").textContent);
+  });
+
+  ageSelect.addEventListener("change", applyFilters);
+  searchInput.addEventListener("input", applyFilters);
+  applyFilters();
+})();
+</script>
+</body>
+</html>
